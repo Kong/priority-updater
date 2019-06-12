@@ -2,6 +2,10 @@
 
 Tool to quickly create a plugin with an updated priority.
 
+# Status
+
+> early development
+
 # Description
 
 Kong plugin priorities are static, in source. Occasionally there is a use-case
@@ -32,7 +36,9 @@ the LuaRocks repository with loads of useless/duplicate plugins._
     The new plugin name is `request-transformer_999` (the old name with the
     appended new priority)
 
-2. Copy the resulting `.rock` file to the target system
+2. Copy the resulting `.rock` file to the target system. Or use the
+   [docker tools](https://github.com/Kong/docker-kong/tree/master/customize)
+   to inject it into a Kong docker image.
 
 3. Install the plugin on your Kong system using LuaRocks
 
