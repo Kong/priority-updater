@@ -55,11 +55,12 @@ rm ./template/plugin/*.rockspec > /dev/null 2>&1
 
 docker run \
     --rm \
+    --user root \
     --volume "$PWD/template:/template" \
     --workdir="/template/plugin" \
     -e KONG_PRIORITY_NAME="$PLUGINNAME" \
     -e KONG_PRIORITY="$PRIORITY" \
-    kong:1.1.2 \
+    kong:2.1.4 \
     /usr/local/openresty/luajit/bin/luajit ../priority.lua
 
 mv ./template/plugin/*.rock ./ > /dev/null 2>&1
