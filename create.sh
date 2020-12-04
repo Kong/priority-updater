@@ -7,7 +7,7 @@ if [ "$1" == "--help" ]; then
   echo "but with the new priority."
   echo
   echo "Usage:"
-  echo "    $BASH_SOURCE \"PLUGIN_NAME\" \"NEW_PRIORITY\""
+  echo "    ${BASH_SOURCE[0]} \"PLUGIN_NAME\" \"NEW_PRIORITY\""
   echo
   echo "    PLUGIN_NAME  : name of existing plugin to re-prioritize"
   echo "    NEW_PRIORITY : the priority the new plugin should have"
@@ -16,7 +16,7 @@ if [ "$1" == "--help" ]; then
   echo "This new name is mandatory and cannot be changed."
   echo
   echo "Example:"
-  echo "    $BASH_SOURCE \"request-termination\" \"15\""
+  echo "    ${BASH_SOURCE[0]} \"request-termination\" \"15\""
   echo
   echo "Will create:"
   echo "    kong-plugin-request-termination_15-0.1-1.rock"
@@ -24,7 +24,7 @@ if [ "$1" == "--help" ]; then
   echo "It can be installed using:"
   echo "    luarocks install kong-plugin-request-termination_15-0.1-1.rock"
   echo
-  
+
   exit 0
 fi
 
@@ -33,12 +33,12 @@ PRIORITY="$2"
 
 if [ "$PLUGINNAME" == "" ]; then
   echo "Missing plugin name, rerun with '--help' for info."
-  
+
   exit 1
 fi
 
 if [ "$PRIORITY" == "" ]; then
-  echo "Missing plugin priority, rerun with '--help' for info."  
+  echo "Missing plugin priority, rerun with '--help' for info."
   exit 1
 fi
 
@@ -55,7 +55,7 @@ rm ./template/plugin/*.rockspec > /dev/null 2>&1
 
 docker run \
     --rm \
-    --volume $PWD/template:/template \
+    --volume "$PWD/template:/template" \
     --workdir="/template/plugin" \
     -e KONG_PRIORITY_NAME="$PLUGINNAME" \
     -e KONG_PRIORITY="$PRIORITY" \
