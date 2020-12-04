@@ -1,5 +1,6 @@
 -- capture original plugin name, and new priority from filename
-local plugin_name, priority = ({...})[1]:match("^kong%.plugins%.([^%.]-)_(%d+)%.api$")
+local this_module_name = ({...})[1]
+local plugin_name, priority = this_module_name:match("^kong%.plugins%.([^%.]-)_(%d+)%.api$")
 if not plugin_name or not priority then
   error("Plugin file must be named '..../kong/plugins/<name>_<priority>/api.lua', got: " .. tostring(({...})[1]))
 end
@@ -8,7 +9,8 @@ local module_name = "kong.plugins." .. plugin_name .. ".api"
 
 if package.loaded[module_name] then
   -- the api file should be loaded only once, so error out as if the module wasn't found
-  return error("original was already loaded")
+  -- error must match exactly, since the loader validates it
+  return error("module '" .. this_module_name .. "' not found")
 end
 
 -- if this fails, it is identical to the original failing, so the error indicates it's not there
