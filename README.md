@@ -71,3 +71,16 @@ those are required to run it.
   values in `self`), then that is the only part that is NOT shared. Afaik there
   are currently no such plugins.
 
+# History/Changelog
+
+Note: the version is the version of the generated wrapper code, and independent
+of the original code. If the Lua code of the wrapper changes, then also change
+the version of the generated wrapper in `priority.lua`, the `WRAPPER_VERSION`
+constant at the top.
+
+### 0.2 04-Dec-2020
+- Fix: plugins with `daos.lua` or `api.lua` would fail on more recent versions
+  of Kong because it checks the exact error message.
+
+### 0.1 12-Jun-2019
+- Initial version

@@ -1,6 +1,7 @@
 local exec = require("pl.utils").execute
 local writefile = require("pl.utils").writefile
 
+local WRAPPER_VERSION = "0.2" -- version of the wrapper code, will reflect in the rockspec
 
 io.stdout:setvbuf("no")
 io.stderr:setvbuf("no")
@@ -84,14 +85,14 @@ assert(prep_platform())
 local plugin = os.getenv("KONG_PRIORITY_NAME")
 local priority = os.getenv("KONG_PRIORITY")
 local plugin_name = tostring(plugin) .. "_" .. tostring(priority)
-local rockspec = "kong-plugin-" .. plugin_name .. "-0.1-1.rockspec"
+local rockspec = "kong-plugin-" .. plugin_name .. "-" .. WRAPPER_VERSION .. "-1.rockspec"
 
 header("Building: "..plugin_name)
 assert(writefile(rockspec,[[
 local pluginName = "]] .. plugin_name .. [["
 
 package = "kong-plugin-" .. pluginName
-version = "0.1-1"
+version = "]] .. WRAPPER_VERSION .. [[-1"
 
 supported_platforms = {"linux", "macosx"}
 source = {
@@ -121,7 +122,7 @@ header("Packing: "..plugin_name)
 assert(exec("luarocks pack kong-plugin-" .. plugin_name))
 os.remove(rockspec)
 
-header("Done creating: " .. "kong-plugin-" .. plugin_name .. "-0.1-1.all.rock")
+header("Done creating: " .. "kong-plugin-" .. plugin_name .. "-" .. WRAPPER_VERSION .. "-1.all.rock")
 
 
 
