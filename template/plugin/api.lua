@@ -13,8 +13,12 @@ if package.loaded[module_name] then
   return error("module '" .. this_module_name .. "' not found")
 end
 
--- if this fails, it is identical to the original failing, so the error indicates it's not there
-local api = require("kong.plugins." .. plugin_name .. ".api")
+-- if this fails the error indicates it's not there
+local success, api = pcall(require, "kong.plugins." .. plugin_name .. ".api")
+if not success then
+  -- error must match exactly, since the loader validates it, so rethrow with adjusted name
+  return error("module '" .. this_module_name .. "' not found")
+end
 
 -- what if the original plugin is loaded after this one?
 package.loaded[module_name] = {}   -- make it empty! no new endpoints will be added, by anyone after us

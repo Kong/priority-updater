@@ -13,9 +13,12 @@ if package.loaded[module_name] then
   return error("module '" .. this_module_name .. "' not found")
 end
 
--- if this fails because it doesn't exist, it is identical to the original
--- failing, so the error indicates it's not there
-local daos = require("kong.plugins." .. plugin_name .. ".daos")
+-- if this fails the error indicates it's not there
+local success, daos = pcall(require, "kong.plugins." .. plugin_name .. ".daos")
+if not success then
+  -- error must match exactly, since the loader validates it, so rethrow with adjusted name
+  return error("module '" .. this_module_name .. "' not found")
+end
 
 -- what if the original plugin is loaded after this one?
 package.loaded[module_name] = {}   -- make it empty! no new daos will be added, by anyone after us
