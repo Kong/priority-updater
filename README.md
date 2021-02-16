@@ -55,6 +55,15 @@ the LuaRocks repository with loads of useless/duplicate plugins._
         --data "config.remove.headers=x-toremove, x-another-one"
     ```
 
+## note
+
+You can pass a 3rd argument to the `create.sh` script if you want to chage the
+   version of the docker container that is used. e.g.
+
+ ``` bash
+     ./create.sh "request-transformer" 999 kong:2.3.2
+ ```
+
 # Requirements/Prerequisites
 
 The utility is a `bash` script that uses a `docker` build container. Hence only

@@ -30,6 +30,7 @@ fi
 
 PLUGINNAME="$1"
 PRIORITY="$2"
+KONG_VERSION="${3:-kong:2.1.4}"
 
 if [ "$PLUGINNAME" == "" ]; then
   echo "Missing plugin name, rerun with '--help' for info."
@@ -60,7 +61,7 @@ docker run \
     --workdir="/template/plugin" \
     -e KONG_PRIORITY_NAME="$PLUGINNAME" \
     -e KONG_PRIORITY="$PRIORITY" \
-    kong:2.1.4 \
+    $KONG_VERSION \
     /usr/local/openresty/luajit/bin/luajit ../priority.lua
 
 mv ./template/plugin/*.rock ./ > /dev/null 2>&1
