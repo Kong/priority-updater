@@ -75,8 +75,12 @@ those are required to run it.
 
 Note: the version is the version of the generated wrapper code, and independent
 of the original code. If the Lua code of the wrapper changes, then also change
-the version of the generated wrapper in `priority.lua`, the `WRAPPER_VERSION`
-constant at the top.
+the version at:
+- the generated wrapper in `priority.lua`, the `WRAPPER_VERSION` constant
+- the VERSION in `handler.lua`
+
+### 0.4 14-Apr-2020
+- Fix: workaround for a [LuaJIT bug](https://www.freelists.org/post/luajit/require-not-clearing-userdata-value).
 
 ### 0.3 14-Dec-2020
 - Fix: fix in version 0.2 was incomplete, the new error could be the existing

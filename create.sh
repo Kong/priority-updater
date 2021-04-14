@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "$1" == "--help" ]; then
-  echo "Utility to create Kong plugins with alternate priority."
+  echo "Utility to create Kong plugins with alternative priority."
   echo
   echo "It will create a NEW plugin identical to the original one,"
   echo "but with the new priority."

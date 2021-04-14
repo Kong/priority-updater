@@ -1,7 +1,7 @@
 local exec = require("pl.utils").execute
 local writefile = require("pl.utils").writefile
 
-local WRAPPER_VERSION = "0.3" -- version of the wrapper code, will reflect in the rockspec
+local WRAPPER_VERSION = "0.4" -- version of the wrapper code, will reflect in the rockspec
 
 io.stdout:setvbuf("no")
 io.stderr:setvbuf("no")
