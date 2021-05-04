@@ -1,3 +1,7 @@
+-- This is generated code, DO NOT UPDATE!
+-- If you have a fix, head over to https://github.com/Kong/priority-updater and
+-- send a PR on the original template files
+
 -- capture original plugin name, and new priority from filename
 local this_module_name = ({...})[1]
 local plugin_name, priority = this_module_name:match("^kong%.plugins%.([^%.]-)_(%d+)%.daos$")
@@ -7,17 +11,29 @@ end
 
 local module_name = "kong.plugins." .. plugin_name .. ".daos"
 
-if package.loaded[module_name] then
-  -- the daos file should be loaded only once, so error out as if the module wasn't found
+
+
+-- Error out indicating to the loader this module was not found
+local function this_module_wasnt_found()
+  -- clear LuaJIT temp userdata. If we leave the userdata, then a next call to
+  -- `require` will return that userdata, and cause subsequent failures
+  -- see https://www.freelists.org/post/luajit/require-not-clearing-userdata-value
+  package.loaded[this_module_name] = nil
   -- error must match exactly, since the loader validates it
   return error("module '" .. this_module_name .. "' not found")
 end
 
--- if this fails the error indicates it's not there
-local success, daos = pcall(require, "kong.plugins." .. plugin_name .. ".daos")
+
+
+if package.loaded[module_name] then
+  -- the api file should be loaded only once, so error out
+  this_module_wasnt_found()
+end
+
+-- if this fails the error indicates the original plugin didn't have the file
+local success, daos = pcall(require, module_name)
 if not success then
-  -- error must match exactly, since the loader validates it, so rethrow with adjusted name
-  return error("module '" .. this_module_name .. "' not found")
+  this_module_wasnt_found()
 end
 
 -- what if the original plugin is loaded after this one?
