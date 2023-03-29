@@ -60,7 +60,7 @@ docker run \
     --workdir="/template/plugin" \
     -e KONG_PRIORITY_NAME="$PLUGINNAME" \
     -e KONG_PRIORITY="$PRIORITY" \
-    kong:2.1.4 \
+    kong:3.2.2 \
     /usr/local/openresty/luajit/bin/luajit ../priority.lua
 
 mv ./template/plugin/*.rock ./ > /dev/null 2>&1
