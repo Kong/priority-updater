@@ -38,6 +38,12 @@ end
 
 local platforms = {
   {
+    check = "apt -v",         -- check for ubuntu
+    commands = {              -- run before anything else in build container
+      "apt update",
+      "apt install zip",
+    },
+  }, {
     check = "apk -V",         -- check for alpine
     commands = {              -- run before anything else in build container
       "apk update",
