@@ -41,7 +41,7 @@ local platforms = {
     check = "apt -v",         -- check for ubuntu
     commands = {              -- run before anything else in build container
       "apt update",
-      "apt install -y tzip",
+      "apt install -y zip",
     },
   }, {
     check = "apk -V",         -- check for alpine
